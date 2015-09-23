@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="tempUnits">
+        <item>Celsius</item>
+        <item>Farenheit</item>
+    </string-array>
+
+    <string-array name="speedUnits">
+        <item>Miles/hour</item>
+        <item>Kilometers/hour</item>
+    </string-array>
+
+    <string-array name="volumeUnits">
+        <item>Gallons</item>
+        <item>Liters</item>
+    </string-array>
+
+    <string-array name="distanceUnits">
+    <item>Miles</item>
+    <item>Kilometers</item>
+    </string-array>
+    <string-array name="massUnits">
+        <item>Pounds</item>
+        <item>Kilograms</item>
+</string-array>
+
+</resources>
