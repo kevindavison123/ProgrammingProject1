@@ -24,4 +24,9 @@
         <item>Kilograms</item>
 </string-array>
 
+    <string-array name="areaUnits">
+        <item>Square Miles</item>
+        <item>square km</item>
+    </string-array>
+
 </resources>

@@ -9,115 +9,181 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
+import android.view.View.OnClickListener;
 
+import android.widget.Toast;
+import android.widget.Button;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
-public class UnitConverter extends Activity implements AdapterView.OnItemSelectedListener {
+public class UnitConverter extends Activity implements OnClickListener, AdapterView.OnItemSelectedListener {
 
+    private Spinner UnitType;
+    private Spinner UnitFrom;
+    private Spinner UnitTo;
+    private EditText InputValue;
+    private EditText ResultValue;
+    private Button CreateResult;
     ArrayAdapter<String> unitArray;
-    ArrayAdapter<String> unitsAdapter;
-    List<String> units = new ArrayList<String>();
-    List<String> unitList = new ArrayList<String>();
-    Map<String,List<String>> unitMap = new HashMap<String,List<String>>();
+    ArrayAdapter<String>unitArrayFromTo;
+    private UnitConversionStrategy currentStrategy;
+    private UnitConversionStrategy lastStrategy;
+    private String stringFrom;
+    private String stringTo;
+    private static UnitConverter instance;
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_unit_converter);
+        UnitType = (Spinner) findViewById(R.id.type);
+        UnitType.setOnItemSelectedListener(this);
 
-        units.add(getResources().getString(R.string.temp));
-        units.add(getResources().getString(R.string.mass));
-        units.add(getResources().getString(R.string.velocity));
-        units.add(getResources().getString(R.string.volume));
-        units.add(getResources().getString(R.string.distance));
-        for(String someUnit: getResources().getStringArray(R.array.distanceUnits))
-        {
-            unitList.add(someUnit);
-        }
-        for(String someUnit: getResources().getStringArray(R.array.volumeUnits))
-        {
-            unitList.add(someUnit);
-        }
-        for(String someUnit: getResources().getStringArray(R.array.tempUnits))
-        {
-            unitList.add(someUnit);
-        }
-        for(String someUnit: getResources().getStringArray(R.array.speedUnits))
-        {
-            unitList.add(someUnit);
-        }
-        for(String someUnit: getResources().getStringArray(R.array.massUnits))
-        {
-            unitList.add(someUnit);
-        }
-
-        String[] someUnitArray = unitList.toArray(new String[unitList.size()]);
-        String[] someUnits = units.toArray(new String[units.size()]);
-
-        Spinner spinnerUnitNames = (Spinner)findViewById(R.id.unit1);
-
-        unitArray = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item);
+        unitArray= new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item);
         unitArray.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        unitsAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item);
-        unitsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerUnitNames.setAdapter(unitsAdapter);
-        spinnerUnitNames.setOnItemSelectedListener(this);
+        UnitType.setAdapter(unitArray);
+        unitArray.add(getResources().getString(R.string.temp));
+        unitArray.add(getResources().getString(R.string.distance));
+        unitArray.add(getResources().getString(R.string.volume));
+        unitArray.add(getResources().getString(R.string.mass));
+        unitArray.add(getResources().getString(R.string.velocity));
+        unitArray.add(getResources().getString(R.string.area));
+        unitArray.setNotifyOnChange(true);
 
+        UnitFrom = (Spinner)findViewById(R.id.unitFrom);
+        UnitFrom.setOnItemSelectedListener(this);
+        UnitTo = (Spinner)findViewById(R.id.unitTo);
+        UnitTo.setOnItemSelectedListener(this);
 
-        for(String string: someUnits)
-        {
-            unitsAdapter.add(string);
-        }
+        unitArrayFromTo = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item);
+        unitArrayFromTo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        UnitFrom.setAdapter(unitArrayFromTo);
+        UnitTo.setAdapter(unitArrayFromTo);
 
-        Context context = getApplicationContext();
-        int duration = Toast.LENGTH_LONG;
-       Resources res = getResources();
-        spinnerUnitNames.setOnItemSelectedListener(this);
+        unitArrayFromTo.setNotifyOnChange(true);
 
-       if(unitDisplayed.contains("temp"))
-       {
-          Toast toast = Toast.makeText(context,"temp was contained", duration);
-           toast.show();
-       }
+        ResultValue = (EditText) findViewById(R.id.result);
+        ResultValue.setClickable(false);
 
-
-
+        CreateResult = (Button)findViewById(R.id.convertButton);
+        CreateResult.setOnClickListener(this);
+        InputValue = (EditText)findViewById(R.id.value1);
+        currentStrategy = new AreaStrategy();
+        lastStrategy=currentStrategy;
+        instance = this;
+    }
+    public static UnitConverter getInstance() {
+        return instance;
     }
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
     {
-        parent.getItemAtPosition(position);
+        if(view.getParent()==UnitType)
+        {
+            switch(position)
+            {
+                case 0:
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    break;
+
+
+            }
+            fillFromToSpinner(position);
+        }
+
     }
+
+    private void fillFromToSpinner(int position) {
+    }
+
     public void onNothingSelected(AdapterView<?>parent)
     {
 
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_unit_converter, menu);
-        return true;
+    public void areaUnits()
+    {
+        unitArrayFromTo.clear();
+        for(String string: getResources().getStringArray(R.array.tempUnits))
+        {
+            unitArrayFromTo.add(string);
+        }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    public void temperatureUnits()
+    {
+        unitArrayFromTo.clear();
+        for(String string: getResources().getStringArray(R.array.tempUnits))
+        {
+            unitArrayFromTo.add(string);
         }
-
-        return super.onOptionsItemSelected(item);
+    }
+    public void distanceUnits()
+    {
+        unitArrayFromTo.clear();
+        for(String string: getResources().getStringArray(R.array.distanceUnits))
+        {
+            unitArrayFromTo.add(string);
+        }
+    }
+    public void velocityUnits()
+    {
+        unitArrayFromTo.clear();
+        for(String string: getResources().getStringArray(R.array.speedUnits))
+        {
+            unitArrayFromTo.add(string);
+        }
+    }
+    public void volumeUnits()
+    {
+        unitArrayFromTo.clear();
+        for(String string: getResources().getStringArray(R.array.volumeUnits))
+        {
+            unitArrayFromTo.add(string);
+        }
+    }
+    public void onClick(View view)
+    {
+        if(view == CreateResult)
+        {
+            if(!InputValue.getText().toString().equals(""))
+            {
+                double input = Double.parseDouble(InputValue.getText().toString());
+                double result = currentStrategy.Convert(stringFrom,stringTo,input);
+                ResultValue.setText(Double.toString(result));
+            }
+            else
+            {
+                ResultValue.setText("");
+            }
+        }
+    }
+    private void setStrategy(UnitConversionStrategy strat)
+    {
+        lastStrategy = currentStrategy;
+        currentStrategy = strat;
+        lastStrategy = null;
     }
 }

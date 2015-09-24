@@ -7,6 +7,7 @@
     <string name="volume">Volume</string>
     <string name="velocity">Velocity</string>
     <string name="mass">Mass</string>
+    <string name="area">Mass</string>
     <string name="distance">Distance</string>
 
 </resources>
