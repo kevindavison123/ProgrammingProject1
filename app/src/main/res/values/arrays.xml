@@ -2,7 +2,7 @@
 <resources>
     <string-array name="tempUnits">
         <item>Celsius</item>
-        <item>Farenheit</item>
+        <item>Fahrenheit</item>
     </string-array>
 
     <string-array name="speedUnits">
@@ -12,13 +12,14 @@
 
     <string-array name="volumeUnits">
         <item>Gallons</item>
-        <item>Liters</item>
+        <item>Litres</item>
     </string-array>
 
     <string-array name="distanceUnits">
     <item>Miles</item>
     <item>Kilometers</item>
     </string-array>
+
     <string-array name="massUnits">
         <item>Pounds</item>
         <item>Kilograms</item>
@@ -26,7 +27,7 @@
 
     <string-array name="areaUnits">
         <item>Square Miles</item>
-        <item>square km</item>
+        <item>Square Kilometers</item>
     </string-array>
 
 </resources>

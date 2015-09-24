@@ -6,12 +6,12 @@ package com.example.kevin.unitconverter;
 public class DistanceStrategy implements UnitConversionStrategy {
     @Override
     public double Convert(String from, String to, double input) {
-        if(from.equals("miles")&&to.equals("km"))
+        if(from.equals("Miles")&&to.equals("Kilometers"))
         {
             double result = input*1.60934;
             return result;
         }
-        if(from.equals("km")&&to.equals("miles"))
+        if(from.equals("Kilometers")&&to.equals("Miles"))
         {
             double result = input*0.621371;
             return result;

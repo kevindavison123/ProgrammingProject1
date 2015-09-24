@@ -8,12 +8,12 @@ public class TemperatureStrategy implements  UnitConversionStrategy
     @Override
     public double Convert(String from, String to, double input)
     {
-        if(from.equals("celsius")&&to.equals("fahrenheit"))
+        if(from.equals("Celsius") && to.equals("Fahrenheit"))
         {
             double result = ((input*9/5)+32);
             return result;
         }
-        if(from.equals("fahrenheit")&&to.equals("celsius"))
+        if(from.equals("Fahrenheit") && to.equals("Celsius"))
         {
             double result = ((input-32)*5/9);
             return result;
@@ -22,6 +22,6 @@ public class TemperatureStrategy implements  UnitConversionStrategy
         {
             return input;
         }
-        return 0;
+        return input;
     }
 }

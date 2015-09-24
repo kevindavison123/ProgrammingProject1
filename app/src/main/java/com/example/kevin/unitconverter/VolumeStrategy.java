@@ -7,12 +7,12 @@ public class VolumeStrategy implements UnitConversionStrategy {
     @Override
     public double Convert(String from, String to, double input) {
 
-        if(from.equals("litre") && to.equals("gallon"))
+        if(from.equals("Litres") && to.equals("Gallons"))
         {
             double result = input * 0.264172;
             return result;
         }
-        if(from.equals("gallon") && to.equals("litre"))
+        if(from.equals("Gallons") && to.equals("Litres"))
         {
             double result = input * 3.78541;
             return result;

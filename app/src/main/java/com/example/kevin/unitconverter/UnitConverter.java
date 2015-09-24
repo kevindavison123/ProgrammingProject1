@@ -1,11 +1,7 @@
 package com.example.kevin.unitconverter;
-
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,13 +9,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.view.View.OnClickListener;
-
 import android.widget.Toast;
-import android.widget.Button;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+/*
+Author: Kevin Davison
+Version: 9/24/15
+This a simple unit converter that takes metric or imperial measurements and converts them to the other.
+I use an interface and switches to find the correct "Strategy"
+Similar to the grid plotter from CS 110.
+ */
 
 
 public class UnitConverter extends Activity implements OnClickListener, AdapterView.OnItemSelectedListener {
@@ -50,12 +48,14 @@ public class UnitConverter extends Activity implements OnClickListener, AdapterV
         unitArray= new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item);
         unitArray.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         UnitType.setAdapter(unitArray);
-        unitArray.add(getResources().getString(R.string.temp));
-        unitArray.add(getResources().getString(R.string.distance));
-        unitArray.add(getResources().getString(R.string.volume));
-        unitArray.add(getResources().getString(R.string.mass));
-        unitArray.add(getResources().getString(R.string.velocity));
         unitArray.add(getResources().getString(R.string.area));
+        unitArray.add(getResources().getString(R.string.distance));
+        unitArray.add(getResources().getString(R.string.mass));
+        unitArray.add(getResources().getString(R.string.temp));
+        unitArray.add(getResources().getString(R.string.velocity));
+        unitArray.add(getResources().getString(R.string.volume));
+
+
         unitArray.setNotifyOnChange(true);
 
         UnitFrom = (Spinner)findViewById(R.id.unitFrom);
@@ -80,9 +80,7 @@ public class UnitConverter extends Activity implements OnClickListener, AdapterV
         lastStrategy=currentStrategy;
         instance = this;
     }
-    public static UnitConverter getInstance() {
-        return instance;
-    }
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
     {
@@ -91,45 +89,99 @@ public class UnitConverter extends Activity implements OnClickListener, AdapterV
             switch(position)
             {
                 case 0:
+                    setStrategy(new AreaStrategy());
                     break;
                 case 1:
+                    setStrategy(new DistanceStrategy());
                     break;
                 case 2:
+                    setStrategy(new MassStrategy());
                     break;
                 case 3:
+                    setStrategy(new TemperatureStrategy());
                     break;
                 case 4:
+                    setStrategy(new VelocityStrategy());
                     break;
                 case 5:
+                    setStrategy(new VolumeStrategy());
                     break;
-                case 6:
-                    break;
-                case 7:
-                    break;
-                case 8:
-                    break;
+
 
 
             }
-            fillFromToSpinner(position);
+            fillFromToSpinners(position);
+
+            UnitFrom.setSelection(0);
+            UnitTo.setSelection(0);
+
+            stringFrom = UnitFrom.getItemAtPosition(0).toString();
+            stringTo = UnitTo.getItemAtPosition(0).toString();
+
+            ResultValue.setText("");
         }
-
+        else if(view.getParent() == UnitFrom)
+        {
+            stringFrom = UnitFrom.getSelectedItem().toString();
+        }
+        else if(view.getParent() == UnitTo)
+        {
+            stringTo = UnitTo.getSelectedItem().toString();
+        }
     }
-
-    private void fillFromToSpinner(int position) {
-    }
-
     public void onNothingSelected(AdapterView<?>parent)
     {
 
     }
-    public void areaUnits()
+
+    private void fillFromToSpinners(int position)
+    {
+
+
+        switch (position)
+        {
+            case 0:
+                areaUnits();
+
+                break;
+            case 1:
+                distanceUnits();
+
+                break;
+            case 2:
+                massUnits();
+
+                break;
+            case 3:
+                temperatureUnits();
+                break;
+            case 4:
+                velocityUnits();
+                break;
+            case 5:
+                volumeUnits();
+                break;
+        }
+    }
+
+
+    public void massUnits()
     {
         unitArrayFromTo.clear();
-        for(String string: getResources().getStringArray(R.array.tempUnits))
+        for(String string: getResources().getStringArray(R.array.massUnits))
         {
             unitArrayFromTo.add(string);
         }
+        unitArrayFromTo.notifyDataSetChanged();
+    }
+    public void areaUnits()
+    {
+        unitArrayFromTo.clear();
+        for(String string: getResources().getStringArray(R.array.areaUnits))
+        {
+            unitArrayFromTo.add(string);
+        }
+        unitArrayFromTo.notifyDataSetChanged();
     }
 
     public void temperatureUnits()
@@ -139,6 +191,7 @@ public class UnitConverter extends Activity implements OnClickListener, AdapterV
         {
             unitArrayFromTo.add(string);
         }
+        unitArrayFromTo.notifyDataSetChanged();
     }
     public void distanceUnits()
     {
@@ -147,6 +200,7 @@ public class UnitConverter extends Activity implements OnClickListener, AdapterV
         {
             unitArrayFromTo.add(string);
         }
+        unitArrayFromTo.notifyDataSetChanged();
     }
     public void velocityUnits()
     {
@@ -155,6 +209,7 @@ public class UnitConverter extends Activity implements OnClickListener, AdapterV
         {
             unitArrayFromTo.add(string);
         }
+        unitArrayFromTo.notifyDataSetChanged();
     }
     public void volumeUnits()
     {
@@ -163,6 +218,7 @@ public class UnitConverter extends Activity implements OnClickListener, AdapterV
         {
             unitArrayFromTo.add(string);
         }
+        unitArrayFromTo.notifyDataSetChanged();
     }
     public void onClick(View view)
     {
@@ -173,6 +229,10 @@ public class UnitConverter extends Activity implements OnClickListener, AdapterV
                 double input = Double.parseDouble(InputValue.getText().toString());
                 double result = currentStrategy.Convert(stringFrom,stringTo,input);
                 ResultValue.setText(Double.toString(result));
+                Context context = getApplicationContext();
+                int duration = Toast.LENGTH_LONG;
+                Toast toast = Toast.makeText(context, "The position: " + stringFrom+ " " + stringTo + " " + input + " " + currentStrategy, duration);
+                toast.show();
             }
             else
             {
