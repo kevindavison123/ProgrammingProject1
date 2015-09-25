@@ -14,11 +14,52 @@ public class VolumeStrategy implements UnitConversionStrategy {
             double result = input * 0.264172;
             return result;
         }
+
+        if(from.equals("Litres") && to.equals("Pints"))
+        {
+            double result = input * 2.11337612;
+            return result;
+        }
+
+        if(from.equals("Litres") && to.equals("Quarts"))
+        {
+            double result = input * 1.05668821;
+            return result;
+        }
+
+        if(from.equals("Litres") && to.equals("Fluid Ounces"))
+        {
+            double result = input * 33.814;
+            return result;
+        }
+
+
+
+
+
         if(from.equals("Gallons") && to.equals("Litres"))
         {
             double result = input * 3.78541;
             return result;
         }
+        if(from.equals("Gallons") && to.equals("Pints"))
+        {
+            double result = input * 8;
+            return result;
+        }
+        if(from.equals("Gallons") && to.equals("Quarts"))
+        {
+            double result = input * 4;
+            return result;
+        }
+        if(from.equals("Gallons") && to.equals("Fluid Ounces"))
+        {
+            double result = input * 128;
+            return result;
+        }
+
+
+
         if(from.equals("Pints") && to.equals("Gallons"))
         {
             double result = input * 0.125;
@@ -29,18 +70,16 @@ public class VolumeStrategy implements UnitConversionStrategy {
             double result = input * 0.473176;
             return result;
         }
-        if(from.equals("Litres") && to.equals("Pints"))
+        if(from.equals("Pints") && to.equals("Quarts"))
         {
-            double result = input * 2.11337612;
+            double result = input * 0.5;
             return result;
         }
-        if(from.equals("Gallons") && to.equals("Pints"))
+        if(from.equals("Pints") && to.equals("Fluid Ounces"))
         {
-            double result = input * 8;
+            double result = input * 16;
             return result;
         }
-
-
 
 
         if(from.equals("Quarts") && to.equals("Gallons"))
@@ -58,19 +97,9 @@ public class VolumeStrategy implements UnitConversionStrategy {
             double result = input * 2;
             return result;
         }
-        if(from.equals("Pints") && to.equals("Quarts"))
+        if(from.equals("Quarts") && to.equals("Fluid Ounces"))
         {
-            double result = input * 0.5;
-            return result;
-        }
-        if(from.equals("Litres") && to.equals("Quarts"))
-        {
-            double result = input * 1.05668821;
-            return result;
-        }
-        if(from.equals("Gallons") && to.equals("Quarts"))
-        {
-            double result = input * 4;
+            double result = input * 32;
             return result;
         }
 
@@ -78,39 +107,26 @@ public class VolumeStrategy implements UnitConversionStrategy {
 
         if(from.equals("Fluid Ounces") && to.equals("Gallons"))
         {
-            double result = input * 0.25;
+            double result = input * 0.0078125;
             return result;
         }
         if(from.equals("Fluid Ounces") && to.equals("Litres"))
         {
-            double result = input * 0.9463295;
+            double result = input * 0.0295735;
             return result;
         }
         if(from.equals("Fluid Ounces") && to.equals("Pints"))
         {
-            double result = input * 2;
+            double result = input * 0.0625;
             return result;
         }
-        if(from.equals("Pints") && to.equals("Fluid Ounces"))
+        if(from.equals("Fluid Ounces") && to.equals("Quarts"))
         {
-            double result = input * 0.5;
+            double result = input * 0.03125;
             return result;
         }
-        if(from.equals("Litres") && to.equals("Fluid Ounces"))
-        {
-            double result = input * 1.05668821;
-            return result;
-        }
-        if(from.equals("Gallons") && to.equals("Fluid Ounces"))
-        {
-            double result = input * 4;
-            return result;
-        }
-        if(from.equals("Pint") && to.equals("Fluid Ounces"))
-        {
-            double result = input * 4;
-            return result;
-        }
+
+
 
         if(from.equals(to))
         {

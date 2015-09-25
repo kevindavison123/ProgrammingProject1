@@ -14,21 +14,24 @@ public class AreaStrategy implements UnitConversionStrategy
            double result = input*2.58999;
             return result;
         }
-        if(from.equals("Square Kilometers")&&to.equals("Square Miles"))
-        {
-            double result = input*2.58999;
-            return result;
-        }
-        if(from.equals("Square Kilometers")&&to.equals("Acres"))
+        if(from.equals("Square Miles")&&to.equals("Acres"))
         {
             double result = input*640;
             return result;
         }
-        if(from.equals("Square Miles")&&to.equals("Acres"))
+
+
+        if(from.equals("Square Kilometers")&&to.equals("Square Miles"))
+        {
+            double result = input*0.386102;
+            return result;
+        }
+        if(from.equals("Square Kilometers")&&to.equals("Acres"))
         {
             double result = input*247.105;
             return result;
         }
+
 
         if(from.equals("Acres")&&to.equals("Square Miles"))
         {
