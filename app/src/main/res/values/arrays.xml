@@ -13,20 +13,28 @@
     <string-array name="volumeUnits">
         <item>Gallons</item>
         <item>Litres</item>
+        <item>Pints</item>
+        <item>Quarts</item>
+        <item>Fluid Ounces</item>
     </string-array>
 
     <string-array name="distanceUnits">
     <item>Miles</item>
+    <item>Feet</item>
+    <item>Yards</item>
     <item>Kilometers</item>
     </string-array>
 
     <string-array name="massUnits">
         <item>Pounds</item>
         <item>Kilograms</item>
+        <item>Ounces</item>
+        <item>Tons</item>
 </string-array>
 
     <string-array name="areaUnits">
         <item>Square Miles</item>
+        <item>Acres</item>
         <item>Square Kilometers</item>
     </string-array>
 
