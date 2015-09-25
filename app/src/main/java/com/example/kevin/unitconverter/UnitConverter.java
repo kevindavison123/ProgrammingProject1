@@ -82,6 +82,9 @@ public class UnitConverter extends Activity implements OnClickListener, AdapterV
     }
 
     @Override
+    /*
+    for the selected item, create the appropriate strategy
+     */
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
     {
         if(view.getParent()==UnitType)
@@ -133,7 +136,9 @@ public class UnitConverter extends Activity implements OnClickListener, AdapterV
     {
 
     }
-
+/*
+fill the spinners with the correct array of units
+ */
     private void fillFromToSpinners(int position)
     {
 
@@ -164,7 +169,9 @@ public class UnitConverter extends Activity implements OnClickListener, AdapterV
         }
     }
 
-
+/*
+these proceeding methods obtain the arrays found in the arrays.xml which are then iterated through and added to the array adapter for the For and To spinners
+ */
     public void massUnits()
     {
         unitArrayFromTo.clear();
@@ -220,6 +227,9 @@ public class UnitConverter extends Activity implements OnClickListener, AdapterV
         }
         unitArrayFromTo.notifyDataSetChanged();
     }
+    /*
+    For the button, take the input from the Edit Text and create the result calling the current strategy which is determined by the users input
+     */
     public void onClick(View view)
     {
         if(view == CreateResult)
@@ -240,6 +250,9 @@ public class UnitConverter extends Activity implements OnClickListener, AdapterV
             }
         }
     }
+    /*
+    Sets the correct strategy for the strategy given, nulls lastStrategy for garbage collection (since it has been consumed appropriately and we don't need it anymore)
+     */
     private void setStrategy(UnitConversionStrategy strat)
     {
         lastStrategy = currentStrategy;

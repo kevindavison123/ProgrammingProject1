@@ -1,7 +1,9 @@
 package com.example.kevin.unitconverter;
 
 /**
- * Created by Kevin on 9/24/2015.
+ Author: Kevin Davison
+ Version: 9/24/15
+ Creates the conversions for area measurements
  */
 public class AreaStrategy implements UnitConversionStrategy
 {
