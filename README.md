@@ -1,3 +1,2 @@
-# ProgrammingProject1
-this is my first programming project
-asdflsadhfdfs
+# UnitConverter
+This is a simple unit converter for an introductory programming project in Android.
